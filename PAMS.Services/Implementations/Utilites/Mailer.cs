@@ -39,7 +39,7 @@ namespace PAMS.Services.Implementations.Utilities
                 client.EnableSsl = true;
                 client.UseDefaultCredentials = false;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.Credentials = new System.Net.NetworkCredential("apikey", "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");
+                client.Credentials = new System.Net.NetworkCredential("apikey", "#Fix");
 
                 try
                 {
