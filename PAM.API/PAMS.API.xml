@@ -1,0 +1,1223 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PAMS.API</name>
+    </assembly>
+    <members>
+        <member name="T:PAMS.API.Configuration.AuthResult">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PAMS.API.Configuration.AuthResult.Token">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PAMS.API.Configuration.AuthResult.Success">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PAMS.API.Configuration.AuthResult.Errors">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:PAMS.API.Configuration.JwtConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PAMS.API.Configuration.JwtConfig.Secret">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:PAMS.API.Controllers.BaseController">
+            <summary>
+            This is the base controller of this application that other controllers inherits.
+            It helps in versioning the application. The Mediator is the messenger/middle man
+            between this base controller and other controllers in this application.
+            </summary>
+        </member>
+        <member name="P:PAMS.API.Controllers.BaseController.Mediator">
+            <summary>
+            This is the entry point to all the controllers in  this application.
+            It send http request through the mediator messenger to any controller that is invoked.
+            </summary>
+        </member>
+        <member name="T:PAMS.API.Controllers.v1.AccountController">
+            <summary>
+            This controller handles all account processes of this application.
+            Registration, Update and all account verification of user.
+            </summary>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AccountController.#ctor(AutoMapper.IMapper,Microsoft.AspNetCore.Identity.UserManager{PAMS.Domain.Entities.PamsUser},Microsoft.AspNetCore.Identity.SignInManager{PAMS.Domain.Entities.PamsUser},Microsoft.Extensions.Options.IOptionsMonitor{PAMS.API.Configuration.JwtConfig},Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.AspNetCore.Identity.RoleManager{Microsoft.AspNetCore.Identity.IdentityRole},PAMS.Application.Interfaces.Persistence.IStoreManager{PAMS.Domain.Entities.UserActivation},PAMS.Services.Implementations.Utilites.IMailService,Microsoft.Extensions.Configuration.IConfiguration,PAMS.Application.Interfaces.Services.IClientService,PAMS.Application.Interfaces.Services.IInvoiceService,PAMS.Application.Interfaces.Services.IUploadService,PAMS.Application.Interfaces.Utilities.IContextAccessor)">
+            <summary>
+            Constructor for dependency injections
+            </summary>
+            <param name="mapper"></param>
+            <param name="userManager"></param>
+            <param name="signInManager"></param>
+            <param name="optionsMonitor"></param>
+            <param name="env"></param>
+            <param name="roleManager"></param>
+            <param name="activationManager"></param>
+            <param name="mailer"></param>
+            <param name="mailerService"></param>
+            <param name="config"></param>
+            <param name="clientService"></param>
+            <param name="invoiceService"></param>
+            <param name="imageUploadService"></param>
+            <param name="contextAccessor"></param>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AccountController.SignUp(PAMS.DTOs.Request.SignUpDTO)">
+            <summary>
+            This endpoint registers staff on this application.
+            </summary>
+            <param name="model"></param>
+            <returns></returns> 
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AccountController.UpdateAccount(PAMS.DTOs.Request.EditDTO)">
+            <summary>
+            This endpoint Updates staff Details on this application.
+            </summary>
+            <param name="model"></param>
+            <returns></returns> 
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AccountController.GenerateJWT(PAMS.Domain.Entities.PamsUser)">
+            <summary>
+            This method generates access token for the user that is passed into it.
+            </summary>
+            <param name="user"></param>
+            <returns>string Token</returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AccountController.SignIn(PAMS.DTOs.Request.SignInDTO)">
+            <summary>
+            This endpoint signs in a user whose correct credentials are sent in.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AccountController.SignOut">
+            <summary>
+            This endpoint signs out users.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AccountController.GenerateActivationCode(System.String)">
+            <summary>
+            This endpoint generates activation code for user registration by admin
+            </summary>
+            <param name="email"></param>
+            <returns></returns>        
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AccountController.ForgotPassword(System.String)">
+            <summary>
+            This endpoint resets the password for the account associated with this email.
+            </summary>
+            <param name="Email"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AccountController.ConfirmOTP(System.String,System.String)">
+            <summary>
+            This endpoint confirms an OTP
+            </summary>
+            <param name="otp"></param>
+            <param name="email"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AccountController.ResetPassword(PAMS.DTOs.Request.PasswordResetDTO)">
+            <summary>
+            This enpoint reset password for user.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AccountController.ChangePassword(PAMS.DTOs.Request.ChangePassword)">
+            <summary>
+            This endpoint changes user's account password.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.GetPhysico(System.Guid)">
+            <summary>
+            Get physico chemical analysis
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.UpdatePhysico(PAMS.Domain.Entities.PhysicoChemicalAnalysis)">
+            <summary>
+            update physico chemical analysis
+            </summary>
+            <param name="physico"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.DeletePhysico(System.Guid)">
+            <summary>
+            Delete physico chemical analysis
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.GetMicro(System.Guid)">
+            <summary>
+            Get micro biological analysis
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.UpdateMicro(PAMS.Domain.Entities.MicroBiologicalAnalysis)">
+            <summary>
+            update micro biological analysis
+            </summary>
+            <param name="micro"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.DeleteMicro(System.Guid)">
+            <summary>
+            Delete  micro biological analysis
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.GenerateTemplate(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            Upload physico-chemical analysis template
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.CreateFMV(PAMS.DTOs.Request.PhysicoTemplates.CreateFmv)">
+            <summary>
+            Create Fmv
+            </summary>
+            <param name="fmenv"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.CreateFmEnvMibrobial(PAMS.DTOs.Request.PhysicoTemplates.CreateMicrobial)">
+            <summary>
+            Create FMENv microbial template
+            </summary>
+            <param name="microbial"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.GetAllFMEnvTemplates">
+            <summary>
+            Get all FMEnv templates
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.CreateNESREA(PAMS.DTOs.Request.PhysicoTemplates.CreateTemp)">
+            <summary>
+            Create NESREA template
+            </summary>
+            <param name="temp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.CreateNESREAMibrobial(PAMS.DTOs.Request.PhysicoTemplates.CreateMicrobial)">
+            <summary>
+            Create nesrea microbial template
+            </summary>
+            <param name="microbial"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.GetAllNesreaTemplates">
+            <summary>
+            Get all FMEnv templates
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.CreateDPR(PAMS.DTOs.Request.PhysicoTemplates.CreateTemp)">
+            <summary>
+            Create DPR template
+            </summary>
+            <param name="temp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.CreateDPRMibrobial(PAMS.DTOs.Request.PhysicoTemplates.CreateMicrobial)">
+            <summary>
+            Create dpr microbial template
+            </summary>
+            <param name="microbial"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.GetAllDPRTemplates">
+            <summary>
+            Get all FMEnv templates
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.CreateAirQualityTemplate(PAMS.DTOs.Request.AirQualityTemplateRequest)">
+            <summary>
+            Create air quality template
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.UpdateAirQualityTemplate(PAMS.Domain.Entities.AirQualityTemplate)">
+            <summary>
+            Update air quality template
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.GetAirQualityTemplateById(System.Guid)">
+            <summary>
+            Get air quality template by Id
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.DeleteAirQualityTemplate(System.Guid)">
+            <summary>
+            Delete air quality template
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.GetAllAirQualityTemplate">
+            <summary>
+            Get all air quality template
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.AddAirQualityParameter(PAMS.DTOs.Request.AddAirQualityParameterRequest)">
+            <summary>
+            Add air quality parameter
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.UpdateAirQualityParameter(PAMS.Domain.Entities.AirQualityParameter)">
+            <summary>
+            Update air quality parameter
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.GetAirQualityParameter(System.Guid)">
+            <summary>
+            Get air quality parameter by Id
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.GetAllAirQualityParameterForTemplate(System.Guid)">
+            <summary>
+            Get all air quality parameter for a template
+            </summary>
+            <param name="TemplateId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.DeleteAirQualityParameter(System.Guid)">
+            <summary>
+            Delete air quality parameter
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.CreateAirQualitySample(PAMS.DTOs.Request.AirQualitySampleRequest)">
+            <summary>
+            Create air quality sample
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.DeleteAirQualitySample(System.Guid)">
+            <summary>
+            Delete air quality sample
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.GetAirQualitySampleById(System.Guid)">
+            <summary>
+            Get air quality sample by Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.AnalysisController.GetAllAirQualitySamples">
+            <summary>
+            Get all air quality sample
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:PAMS.API.Controllers.v1.ClientController">
+            <summary>
+            This controller handles all client related activities.
+            </summary>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.ClientController.#ctor(AutoMapper.IMapper,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,PAMS.Application.Interfaces.Services.IClientService,PAMS.Application.Interfaces.Services.ISampleService)">
+            <summary>
+            Constructor for dependency injections
+            </summary>
+            <param name="mapper"></param> 
+            <param name="env"></param>
+            <param name="clientService"></param>
+            <param name="sampleService"></param>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.ClientController.ClientList(System.Int32,System.Int32)">
+            <summary>
+            This endpoint Gets all the  clients on this application.
+            </summary>
+            <param></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.ClientController.GetClient(System.Guid)">
+            <summary>
+            This endpoint Gets a single client by on this application.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.ClientController.CreateClient(PAMS.DTOs.Request.CreateClientDTO)">
+            <summary>
+            This endpoint creates clients on this application.
+            </summary>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.ClientController.UpdateClient(PAMS.DTOs.Request.UpdateClientDTO)">
+            <summary>
+            This endpoint Updates clients on this application.
+            </summary>
+             <param name="client"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.ClientController.DeleteClient(System.Guid)">
+            <summary>
+            This endpoint Deletes clients on this application.
+            </summary>
+             <param name="clientId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisDPRController.CreateDPRTest(PAMS.DTOs.Request.FieldScientistRequest.DPRTemplatesVm)">
+            <summary>
+            Create field dpr test
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisDPRController.GetAllDPRTests">
+            <summary>
+            Get All tests under field dpr 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisDPRController.UpdateDPRTest(PAMS.DTOs.Request.FieldScientistRequest.UpdateTemplateVm)">
+            <summary>
+            The endpoint updates the dpr Test.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisDPRController.DeleteDPRTest(System.Guid)">
+            <summary>
+            The endpoint delete a dpr Test.
+            </summary>
+            <param name="templateId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisDPRController.GetDPRTemplates(PAMS.DTOs.Request.FieldScientistRequest.DPRsCreateRequestVM)">
+            <summary>
+            This endpoint returns DPR Templates with all the Test templates that belongs to the Sample Location whose id passed.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisDPRController.GetDPRSpecificTestTemplatesByName(PAMS.DTOs.Request.FieldScientistRequest.DPRTestName)">
+            <summary>
+            This endpoint returns DPR Test Template that belongs to DPR template whose id passed.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisDPRController.AddOrUpdateDPRSpecificTestTestResultByName(PAMS.DTOs.Request.FieldScientistRequest.DPRTestResult)">
+            <summary>
+            This endpoint update the value of each Test result of any test conducted under dpr.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisDPRController.AddDPRTestResult(PAMS.DTOs.Request.FieldScientistRequest.AddDPRTestResults)">
+            <summary>
+            The endpoint for final submission of all result values under dpr.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisDPRController.GetAllDPRTest(System.String,System.Int32,System.Int32)">
+            <summary>
+            This endpoint Gets all the dpr tests on this application.
+            </summary>
+            <param></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisDPRController.GetAllDPRTestByAnalstId(System.String,System.Int32,System.Int32)">
+            <summary>
+            This endpoint Gets all the dpr tests on this application by Analyst Id.
+            </summary>
+            <param></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisDPRController.GetDPRTestById(PAMS.DTOs.Request.FieldScientistRequest.DprsResultVM)">
+            <summary>
+            This endpoint Gets DPR test per Id for a location.
+            </summary>
+            <param></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisDPRController.DownloadDPRTestToExcel(PAMS.DTOs.Request.FieldScientistRequest.DprsResultVM)">
+            <summary>
+            With this endpoint you can download dpr test result
+            </summary>
+            <param></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisDPRController.DownloadDPRPhoto(PAMS.DTOs.Request.FieldScientistRequest.DprsResultVM)">
+            <summary>
+            With this endpoint you can download photo submitted with the dpr test
+            </summary>
+            <param></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisFMEnvController.CreateFMENVTest(PAMS.DTOs.Request.FieldScientistRequest.FMENVTemplatesVm)">
+            <summary>
+            Create field fmenv test
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisFMEnvController.GetAllFMENVTests">
+            <summary>
+            Get All tests under field fmenv 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisFMEnvController.UpdateFMENVTest(PAMS.DTOs.Request.FieldScientistRequest.UpdateFMENVTemplateVm)">
+            <summary>
+            The endpoint updates the fmenv Test.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisFMEnvController.DeleteFMENVTest(System.Guid)">
+            <summary>
+            The endpoint delete a fmenv Test.
+            </summary>
+            <param name="templateId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisFMEnvController.GetFMEnvTemplates(PAMS.DTOs.Request.FieldScientistRequest.FMEnvsCreateRequestVM)">
+            <summary>
+            This endpoint returns FMEnv Templates with all the Test templates that belongs to the Sample Location whose id passed.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisFMEnvController.GetFMEnvSpecificTestTemplatesByName(PAMS.DTOs.Request.FieldScientistRequest.FMEnvTestName)">
+            <summary>
+            This endpoint returns FMEnv Test Template that belongs to FMEnv template whose id passed.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisFMEnvController.AddOrUpdateFMEnvSpecificTestTestResultByName(PAMS.DTOs.Request.FieldScientistRequest.FMEnvTestResult)">
+            <summary>
+            This endpoint update the value of each Test result of any test conducted under fmenv.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisFMEnvController.AddFMEnvTestResult(PAMS.DTOs.Request.FieldScientistRequest.AddFMEnvTestResults)">
+            <summary>
+            The endpoint for final submission of all result values under fmenv.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisFMEnvController.GetAllFMEnvTest(System.String,System.Int32,System.Int32)">
+            <summary>
+            This endpoint Gets all the fmenv tests on this application.
+            </summary>
+            <param></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisFMEnvController.GetAllFMEnvTestByAnalystId(System.String,System.Int32,System.Int32)">
+            <summary>
+            This endpoint Gets all the fmenv tests on this application by Analyst Id.
+            </summary>
+            <param></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisFMEnvController.GetFMEnvTestById(PAMS.DTOs.Request.FieldScientistRequest.FmEnvResultVM)">
+            <summary>
+            This endpoint Gets FMVEnv test per Id for a location.
+            </summary>
+            <param></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisFMEnvController.DownloadDPRTestToExcel(PAMS.DTOs.Request.FieldScientistRequest.FmEnvResultVM)">
+            <summary>
+            With this endpoint you can download fmenv test result
+            </summary>
+            <param></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisFMEnvController.DownloadDPRPhoto(PAMS.DTOs.Request.FieldScientistRequest.FmEnvResultVM)">
+            <summary>
+            With this endpoint you can download photo submitted with the fmenv test
+            </summary>
+            <param></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisNesreaController.CreateNESREATest(PAMS.DTOs.Request.FieldScientistRequest.NesreaTemplatesVm)">
+            <summary>
+            Create field nesrea test
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisNesreaController.GetAllNESREATests">
+            <summary>
+            Get All tests under field nesrea 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisNesreaController.UpdateNESREATest(PAMS.DTOs.Request.FieldScientistRequest.UpdateNesreaTemplateVm)">
+            <summary>
+            The endpoint updates the nesrea Test.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisNesreaController.DeleteNESREATest(System.Guid)">
+            <summary>
+            The endpoint delete a nesrea Test.
+            </summary>
+            <param name="templateId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisNesreaController.GetNesreaTemplates(PAMS.DTOs.Request.FieldScientistRequest.CreateNesreamVM)">
+            <summary>
+            This endpoint returns Nesrea Templates with all the Test templates that belongs to the Sample Location whose id passed.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisNesreaController.GetNesreaSpecificTestTemplatesByName(PAMS.DTOs.Request.FieldScientistRequest.NesreaTestName)">
+            <summary>
+            This endpoint returns Nesrea Test Template that belongs to nesrea template whose id passed.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisNesreaController.AddOrUpdateNesreaSpecificTestTestResultByName(PAMS.DTOs.Request.FieldScientistRequest.NesreaTestResult)">
+            <summary>
+            This endpoint update the value of each Test result of any test conducted under nasrea.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisNesreaController.AddNesreaTestResult(PAMS.DTOs.Request.FieldScientistRequest.AddNesreaTestResults)">
+            <summary>
+            The endpoint for final submission of all result values under nasrea.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisNesreaController.GetAllNesreaTest(System.String,System.Int32,System.Int32)">
+            <summary>
+            This endpoint Gets all the nesrea tests on this application.
+            </summary>
+            <param></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisNesreaController.GetAllNesreaTestByAnalyst(System.String,System.Int32,System.Int32)">
+            <summary>
+            This endpoint Gets all the nesrea tests on this application Submitted by the Analyst.
+            </summary>
+            <param></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisNesreaController.GetNesreaTestById(PAMS.DTOs.Request.FieldScientistRequest.NesreamResultVM)">
+            <summary>
+            This endpoint Gets nesrea test per Id for a location.
+            </summary>
+            <param></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisNesreaController.DownloadNesreaTestToExcel(PAMS.DTOs.Request.FieldScientistRequest.NesreamResultVM)">
+            <summary>
+            With this endpoint you can download nesrea test result
+            </summary>
+            <param></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisNesreaController.DownloadNesreaPhoto(PAMS.DTOs.Request.FieldScientistRequest.NesreamResultVM)">
+            <summary>
+            With this endpoint you can download photo submitted with the nesrea test
+            </summary>
+            <param></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisNesreaController.AddLocationByClientId(PAMS.DTOs.Request.FieldScientistRequest.CreateSampleLocationRequest)">
+            <summary>
+            Add Sample Location On Client Site
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisNesreaController.GetAllSampleLocationsByClientId(System.Guid)">
+            <summary>
+            This endpoint gets all sample locations under a particular Client.
+            </summary>
+            <param name="clientId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisNesreaController.UpdateSampleLocation(PAMS.DTOs.Request.FieldScientistRequest.UpdateSampleLocationRequest)">
+            <summary>
+            Update a Sample Location by Id
+            </summary>
+            <param name="updateSampleLocationRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisNesreaController.DeleteSampleLocation(System.Int64)">
+            <summary>
+            Delete a Sample Location by Id
+            </summary>
+            <param name="sampleLocationId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PAMS.API.Controllers.v1.InventoryController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InventoryController.#ctor(PAMS.Application.Interfaces.Services.IInventoryService,PAMS.Application.Interfaces.Services.ISupplierService)">
+            <summary>
+            
+            </summary>
+            <param name="inventoryService"></param>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InventoryController.CreateStock(PAMS.DTOs.Request.CreateStockInventory)">
+            <summary>
+            Add item to stock inventory
+            </summary>
+            <param name="inventory"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InventoryController.GetStock(System.Guid)">
+            <summary>
+            Get stocked item
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InventoryController.GetStockAll">
+            <summary>
+            Get all stock inventory
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InventoryController.UpdateStock(PAMS.Domain.Entities.Inventory)">
+            <summary>
+            Update stock inventory item
+            </summary>
+            <param name="inventory"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InventoryController.DeleteStock(System.Guid)">
+            <summary>
+            Delete stock item
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InventoryController.Createequipment(PAMS.DTOs.Request.CreateEquipmentInventory)">
+            <summary>
+            Add item to equipment inventory
+            </summary>
+            <param name="inventory"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InventoryController.Getequipment(System.Guid)">
+            <summary>
+            Get equipment
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InventoryController.GetequipmentAll">
+            <summary>
+            Get all equipment inventory
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InventoryController.Updateequipment(PAMS.Domain.Entities.EquipmentInventory)">
+            <summary>
+            Update equipment inventory item
+            </summary>
+            <param name="inventory"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InventoryController.DeleteEquipment(System.Guid)">
+            <summary>
+            Delete stock item
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InventoryController.CreateSupplier(PAMS.DTOs.Request.CreateSupplier)">
+            <summary>
+            Create supplier
+            </summary>
+            <param name="supplier"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InventoryController.UpdateSupplier(PAMS.Domain.Entities.Supplier)">
+            <summary>
+            Updated supplier
+            </summary>
+            <param name="supplier"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InventoryController.GetSupplierById(System.Guid)">
+            <summary>
+            Get supplier by Id
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InventoryController.GetAllSuppliers">
+            <summary>
+            Get all suppliers
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InventoryController.DeleteSupplier(System.Guid)">
+            <summary>
+            Delete supplier
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PAMS.API.Controllers.v1.InvoiceController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InvoiceController.#ctor(PAMS.Application.Interfaces.Services.IInvoiceService,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,DinkToPdf.Contracts.IConverter,PAMS.Application.Interfaces.Utilities.IMailer)">
+            <summary>
+            
+            </summary>
+            <param name="invoiceService"></param>
+            <param name="env"></param>
+            <param name="converter"></param>
+            <param name="mailer"></param>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InvoiceController.CreateInvoice(PAMS.DTOs.Request.CreateInvoice)">
+            <summary>
+            Generate invoice for client sampling.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InvoiceController.GetInvoice(System.Guid)">
+            <summary>
+            Get invoice by Id
+            </summary>
+            <param name="invoiceId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InvoiceController.GetAllInvoices">
+            <summary>
+            Get all avaialbe invoices
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InvoiceController.GetClientInvoices(System.Guid)">
+            <summary>
+            Get all invoice for a client.
+            </summary>
+            <param name="clientId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InvoiceController.UpdateInvoice(PAMS.DTOs.Request.UpdateInvoice)">
+            <summary>
+            Update an invoice
+            </summary>
+            <param name="invoice"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InvoiceController.DeleteInvoice(System.Guid)">
+            <summary>
+            Delete an invoice record
+            </summary>
+            <param name="invoiceId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InvoiceController.Pay(System.Guid)">
+            <summary>
+            Mark an invoice as paid
+            </summary>
+            <param name="invoiceId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InvoiceController.SendInvoice(System.Guid)">
+            <summary>
+            Send invoice to the client email.
+            </summary>
+            <param name="invoiceId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.InvoiceController.DownloadInvoice(System.Guid)">
+            <summary>
+            Get pdf file of invoice
+            </summary>
+            <param name="invoiceId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PAMS.API.Controllers.v1.ManagementController">
+            <summary>
+            This controller handles all managerial task in this application.
+            </summary>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.ManagementController.#ctor(AutoMapper.IMapper,Microsoft.AspNetCore.Identity.UserManager{PAMS.Domain.Entities.PamsUser},Microsoft.AspNetCore.Identity.SignInManager{PAMS.Domain.Entities.PamsUser},Microsoft.Extensions.Options.IOptionsMonitor{PAMS.API.Configuration.JwtConfig},Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.AspNetCore.Identity.RoleManager{Microsoft.AspNetCore.Identity.IdentityRole},PAMS.Application.Interfaces.Persistence.IStoreManager{PAMS.Domain.Entities.UserActivation},PAMS.Application.Interfaces.Utilities.IMailer,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Constructor for dependency injections.
+            </summary>
+            <param name="mapper"></param>
+            <param name="userManager"></param>
+            <param name="signInManager"></param>
+            <param name="optionsMonitor"></param>
+            <param name="env"></param>
+            <param name="roleManager"></param>
+            <param name="activationManager"></param>
+            <param name="mailer"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.ManagementController.GetAllUsers">
+            <summary>
+            This endpoint returns all the users of this application.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.ManagementController.GetUserWithUserRole(PAMS.Domain.Entities.PamsUser,System.Collections.Generic.List{Microsoft.AspNetCore.Identity.IdentityRole})">
+            <summary>
+            This Method returns list of all users and theirs roles.
+            </summary>
+            <param name="user"></param>
+            <param name="roles"></param>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.ManagementController.Disable(System.String)">
+            <summary>
+            This action method unlocks out any user whose id is sent in.
+            </summary>
+            <param name="userId">string userId</param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.ManagementController.Enable(System.String)">
+            <summary>
+            This action method locks out any user whose id is sent in.
+            </summary>
+            <param name="userId">string userId</param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.ManagementController.AddToRole(System.String,System.String)">
+            <summary>
+            This endpoint upgrades or downgrades a user by changing the user role.
+            </summary>
+            <param name="userId"></param>
+            <param name="roleId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.ManagementController.GetRoles">
+            <summary>
+            This endpoint returns all the available user types.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:PAMS.API.Controllers.v1.ReportController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.ReportController.#ctor(PAMS.Application.Interfaces.Services.IReportService,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,PAMS.Application.Helpers.IMajorUtility)">
+            <summary>
+            
+            </summary>
+            <param name="reportService"></param>
+            <param name="env"></param>
+            <param name="majorUtility"></param>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.ReportController.CreateReport(PAMS.DTOs.Request.CreateReport)">
+            <summary>
+            Create report for sampling
+            </summary>
+            <param name="report"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.ReportController.GetReport(System.Guid)">
+            <summary>
+            Returns the report whose id is passed
+            </summary>
+            <param name="reportid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.ReportController.DownloadReport(System.Guid)">
+            <summary>
+            Get downloadable version of report in pdf.
+            </summary>
+            <param name="reportid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.ReportController.GetAllReports">
+            <summary>
+            Returns all the report.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.ReportController.GetClientReports(System.Guid)">
+            <summary>
+            Returns all reports that belongs to a client.
+            </summary>
+            <param name="clientid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.ReportController.GetReportBySampleId(System.Guid)">
+            <summary>
+            Returns the report whose sample id is passed
+            </summary>
+            <param name="sampleId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.ReportController.UpdateReport(PAMS.DTOs.Request.UpdateReport)">
+            <summary>
+            Update an existing report.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.ReportController.DeleteReport(System.Guid)">
+            <summary>
+            Deletes the report whose id is passed
+            </summary>
+            <param name="reportid"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PAMS.API.Controllers.v1.SampleController">
+            <summary>
+            This controller handles all sampling tasks in this application.
+            </summary>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.SampleController.#ctor(PAMS.Application.Interfaces.Services.ISampleService,PAMS.Application.Interfaces.Services.IClientService,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,PAMS.Application.Interfaces.Utilities.INotification,PAMS.Application.Interfaces.Utilities.IContextAccessor,Microsoft.AspNetCore.SignalR.IHubContext{PAMS.API.Hubs.NotificationHub},Microsoft.AspNetCore.Identity.UserManager{PAMS.Domain.Entities.PamsUser})">
+            <summary>
+            Constructor for injecting dependencies
+            </summary>
+            <param name="sampleService"></param>
+            <param name="clientService"></param>
+            <param name="env"></param>
+            <param name="notification"></param>
+            <param name="contextAccessor"></param>
+            <param name="notificationHubContext"></param>
+            <param name="userManager"></param>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.SampleController.CreateClientSampling(PAMS.DTOs.Request.SamplingDTO)">
+            <summary>
+            This endpoint creates sampling taken by field analyst for a client.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.SampleController.GetSampling(System.Guid)">
+            <summary>
+            This enpoint returns a sampling object whose id passed.
+            </summary>
+            <param name="samplingId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.SampleController.GetSamplings(System.Guid)">
+            <summary>
+            This endpoint returns all the samplings that belongs to a client whose id passed.
+            </summary>
+            <param name="clientId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.SampleController.GetSampleTemplates(System.Guid)">
+            <summary>
+            This endpoint returns all the sample template that belongs to the client whose id passed.
+            </summary>
+            <param name="clientId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.SampleController.GetAllSamplings">
+            <summary>
+            This endpoint returns all the created samplings in this application, for admins.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.SampleController.GetAllUsers">
+            <summary>
+            This method returns all users except staff.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.SettingsController.GetTax">
+            <summary>
+            Get tax value
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.SettingsController.GetAllSettings">
+            <summary>
+            Get all settings
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.SettingsController.UpdateTax(System.Decimal)">
+            <summary>
+            Update tax value
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.SettingsController.UpdateLabDirectore(System.String)">
+            <summary>
+            Update Lab Director name
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:PAMS.API.Helpers.ContextAccessor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PAMS.API.Helpers.ContextAccessor.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Contructor for dependency injections.
+            </summary>
+            <param name="contextAccessor"></param>
+        </member>
+        <member name="M:PAMS.API.Helpers.ContextAccessor.GetCurrentUserId">
+            <summary>
+            This returns the ID of the currently signed in user.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Helpers.ContextAccessor.GetCurrentUserEmail">
+            <summary>
+            This gets the email of the currently signed in user.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:PAMS.API.Helpers.MajorUtility">
+            <summary>
+            Major utility class for taking care fast and easy chores
+            </summary>
+        </member>
+        <member name="M:PAMS.API.Helpers.MajorUtility.#ctor(DinkToPdf.Contracts.IConverter,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            
+            </summary>
+            <param name="converter"></param>
+            <param name="env"></param>
+        </member>
+        <member name="M:PAMS.API.Helpers.MajorUtility.GenerateInvoicePDF(System.String,System.String,System.String)">
+            <summary>
+            Generate invoice pdf and return path
+            </summary>
+            <param name="htmlcontent"></param>
+            <param name="documentName"></param>
+            <param name="fileDestination"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Helpers.MajorUtility.GeneratePDF(System.String,System.String)">
+            <summary>
+            Generate pdf and return byte array.
+            </summary>
+            <param name="htmlcontent"></param>
+            <param name="documentTitle"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Helpers.MajorUtility.DeleteFile(System.String)">
+            <summary>
+            This deletes a file whose is path is passed
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Helpers.MajorUtility.UploadFile(Microsoft.AspNetCore.Http.IFormFile,System.String)">
+            <summary>
+            This uploads any file to any specified location.
+            </summary>
+            <param name="file"></param>
+            <param name="fileDestination"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Helpers.MajorUtility.UploadFile(System.String,System.String,System.String)">
+            <summary>
+            This uploads any file to any specified location specified from base64 string.
+            </summary>
+            <param name="base64"></param>
+            <param name="fileDestination"></param>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Helpers.MajorUtility.Logger(System.String)">
+            <summary>
+            This writes messages to file in 
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:PAMS.API.Hubs.NotificationHub.Subscribe(System.String)">
+            <summary>
+            This endpoint sends notification to the users
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="T:PAM.API.Program">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PAM.API.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PAM.API.Startup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PAM.API.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Constructor for dependency injection
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:PAM.API.Startup.Configuration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PAM.API.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:PAM.API.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>
