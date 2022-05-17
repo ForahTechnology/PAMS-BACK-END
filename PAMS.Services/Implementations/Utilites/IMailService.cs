@@ -74,7 +74,7 @@ namespace PAMS.Services.Implementations.Utilites
         {
             if (IsValidEmail(emailAddress))
             {
-                var sendgridKey = "cc5c6d559d39e526d281e3e933d01b14943778d7c8d6bbefe60c3fb4d26eae27cb7107daaf0345b4fe39a8f215803798f28d8fe85998c3a51fb8b65d3604dd4a51d7d87e41b5497925ba92a6397da411";
+                var sendgridKey = _configuration["SendgridKey"];
                 var secret = _configuration["Secret"];
                 var key = _configuration["IVKey"];
                 var apiKey = Decrypt.DeCrypt(sendgridKey, secret, key );
@@ -101,7 +101,7 @@ namespace PAMS.Services.Implementations.Utilites
         {
             if (IsValidEmail(emailAddress))
             {
-                var sendgridKey = "cc5c6d559d39e526d281e3e933d01b14943778d7c8d6bbefe60c3fb4d26eae27cb7107daaf0345b4fe39a8f215803798f28d8fe85998c3a51fb8b65d3604dd4a51d7d87e41b5497925ba92a6397da411";
+                var sendgridKey = _configuration["SendgridKey"];
                 var secret = _configuration["Secret"];
                 var key = _configuration["IVKey"];
                 var apiKey = Decrypt.DeCrypt(sendgridKey, secret, key);
