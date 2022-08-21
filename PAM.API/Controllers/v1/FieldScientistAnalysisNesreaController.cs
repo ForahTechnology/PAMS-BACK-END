@@ -153,6 +153,24 @@ namespace PAMS.API.Controllers.v1
         }
 
         /// <summary>
+        /// This endpoint Gets all the nesrea tests by client name on this application.
+        /// </summary>
+        /// <param></param>
+        /// <returns></returns>
+        [HttpGet("GetAllNesreaSubmittedTestByClientName")]
+        public IActionResult GetAllNesreaTestByClientName(string keyword, int pageSize = 10, int pageNumber = 1)
+        {
+            var clientList = _fieldAnalysisService.GetAllNesreaTestByClientName(pageSize, pageNumber, keyword);
+            return Ok(new ResponseViewModel
+            {
+                Status = true,
+                Message = "Query ok",
+                ReturnObject = clientList
+
+            });
+        }
+
+        /// <summary>
         /// This endpoint Gets all the nesrea tests on this application Submitted by the Analyst.
         /// </summary>
         /// <param></param>

@@ -257,6 +257,7 @@ namespace PAMS.Services.Implementations
         {
             var listAllFieldScientistFMEnvTestsVM = new List<AllFieldScientistFMEnveTestsVM>();
             var listOfFMEnvField = new List<FMENVField>();
+            var totalFMEnvField = 0;
             var searchKey = keyword;
 
             if (searchKey is null)
@@ -270,6 +271,9 @@ namespace PAMS.Services.Implementations
                     .Include(x => x.FMENVSamples)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize).ToList();
+
+                totalFMEnvField = _fmenvFieldStoreManager.DataStore.GetAllQuery()
+                    .Where(x => x.Submitted == true).Count();
             }
             else
             {
@@ -282,11 +286,38 @@ namespace PAMS.Services.Implementations
                     .Include(x => x.FMENVSamples)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize).ToList();
+
+                totalFMEnvField = _fmenvFieldStoreManager.DataStore.GetAllQuery()
+                    .Where(x => x.Submitted == true && x.SamplePointLocation.Name.ToLower().Contains(searchKey.ToLower())).Count();
             }
 
             listAllFieldScientistFMEnvTestsVM = listOfFMEnvField.Select(x => (AllFieldScientistFMEnveTestsVM)x).ToList();
 
-            return new PagedResponse<AllFieldScientistFMEnveTestsVM> { Data = listAllFieldScientistFMEnvTestsVM, PageNumber = pageNumber, PageSize = pageSize, Total = listOfFMEnvField.Count() };
+            return new PagedResponse<AllFieldScientistFMEnveTestsVM> { Data = listAllFieldScientistFMEnvTestsVM, PageNumber = pageNumber, PageSize = pageSize, Total = totalFMEnvField };
+        }
+
+        public PagedResponse<AllFieldScientistFMEnveTestsVM> GetAllFMEnvTestByClientName(int pageSize, int pageNumber, string keyword)
+        {
+            var listAllFieldScientistFMEnvTestsVM = new List<AllFieldScientistFMEnveTestsVM>();
+            var listOfFMEnvField = new List<FMENVField>();
+            var totalFMEnvField = 0;
+            var searchKey = keyword;
+
+            listOfFMEnvField = _fmenvFieldStoreManager.DataStore.GetAllQuery()
+                .Where(x => x.Submitted == true && x.SamplePointLocation.Client.Name.ToLower().Contains(searchKey.ToLower()))
+                .OrderByDescending(x => x.TimeModified)
+                .Include(x => x.SamplePointLocation).ThenInclude(x => x.Client)
+                .Include(x => x.FieldLocations)
+                .Include(x => x.PamsUser)
+                .Include(x => x.FMENVSamples)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize).ToList();
+
+            totalFMEnvField = _fmenvFieldStoreManager.DataStore.GetAllQuery()
+                .Where(x => x.Submitted == true && x.SamplePointLocation.Client.Name.ToLower().Contains(searchKey.ToLower())).Count();
+
+            listAllFieldScientistFMEnvTestsVM = listOfFMEnvField.Select(x => (AllFieldScientistFMEnveTestsVM)x).ToList();
+            return new PagedResponse<AllFieldScientistFMEnveTestsVM> { Data = listAllFieldScientistFMEnvTestsVM, PageNumber = pageNumber, PageSize = pageSize, Total = totalFMEnvField };
         }
 
         public PagedResponse<AllFieldScientistFMEnveTestsVM> GetAllFMEnvTestByAnalystId(int pageSize, int pageNumber, string keyword)
@@ -295,6 +326,7 @@ namespace PAMS.Services.Implementations
 
             var listAllFieldScientistFMEnvTestsVM = new List<AllFieldScientistFMEnveTestsVM>();
             var listOfFMEnvField = new List<FMENVField>();
+            var totalFMEnvField = 0;
             var searchKey = keyword;
 
             if (searchKey is null)
@@ -308,6 +340,9 @@ namespace PAMS.Services.Implementations
                     .Include(x => x.FMENVSamples)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize).ToList();
+
+                totalFMEnvField = _fmenvFieldStoreManager.DataStore.GetAllQuery()
+                    .Where(x => x.Submitted == true && x.PamsUserId == userId.ToString()).Count();
             }
             else
             {
@@ -320,11 +355,14 @@ namespace PAMS.Services.Implementations
                     .Include(x => x.FMENVSamples)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize).ToList();
+
+                totalFMEnvField = _fmenvFieldStoreManager.DataStore.GetAllQuery()
+                    .Where(x => x.Submitted == true && x.PamsUserId == userId.ToString() && x.SamplePointLocation.Name.ToLower().Contains(searchKey.ToLower())).Count();
             }
 
             listAllFieldScientistFMEnvTestsVM = listOfFMEnvField.Select(x => (AllFieldScientistFMEnveTestsVM)x).ToList();
 
-            return new PagedResponse<AllFieldScientistFMEnveTestsVM> { Data = listAllFieldScientistFMEnvTestsVM, PageNumber = pageNumber, PageSize = pageSize, Total = listOfFMEnvField.Count() };
+            return new PagedResponse<AllFieldScientistFMEnveTestsVM> { Data = listAllFieldScientistFMEnvTestsVM, PageNumber = pageNumber, PageSize = pageSize, Total = totalFMEnvField };
         }
 
         public async Task<byte[]> DownloadFMEnvTestToExcel(FmEnvResultVM model)

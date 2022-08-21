@@ -457,6 +457,13 @@
             <param></param>
             <returns></returns>
         </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisDPRController.GetAllDPRTestByClientName(System.String,System.Int32,System.Int32)">
+            <summary>
+            This endpoint Gets all the dpr tests by client name on this application.
+            </summary>
+            <param></param>
+            <returns></returns>
+        </member>
         <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisDPRController.GetAllDPRTestByAnalstId(System.String,System.Int32,System.Int32)">
             <summary>
             This endpoint Gets all the dpr tests on this application by Analyst Id.
@@ -547,6 +554,13 @@
             <param></param>
             <returns></returns>
         </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisFMEnvController.GetAllFMEnvTestByClientName(System.String,System.Int32,System.Int32)">
+            <summary>
+            This endpoint Gets all the fmenv tests by client name on this application.
+            </summary>
+            <param></param>
+            <returns></returns>
+        </member>
         <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisFMEnvController.GetAllFMEnvTestByAnalystId(System.String,System.Int32,System.Int32)">
             <summary>
             This endpoint Gets all the fmenv tests on this application by Analyst Id.
@@ -633,6 +647,13 @@
         <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisNesreaController.GetAllNesreaTest(System.String,System.Int32,System.Int32)">
             <summary>
             This endpoint Gets all the nesrea tests on this application.
+            </summary>
+            <param></param>
+            <returns></returns>
+        </member>
+        <member name="M:PAMS.API.Controllers.v1.FieldScientistAnalysisNesreaController.GetAllNesreaTestByClientName(System.String,System.Int32,System.Int32)">
+            <summary>
+            This endpoint Gets all the nesrea tests by client name on this application.
             </summary>
             <param></param>
             <returns></returns>

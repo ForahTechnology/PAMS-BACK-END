@@ -29,6 +29,7 @@ namespace PAMS.Application.Interfaces.Services
         Task<AnalysisDaysCount> NesreaTestCountPastSevenDays();
 
         PagedResponse<AllFieldScientistNesreaTestsVM> GetAllNesreaTest(int pageSize, int pageNumber, string keyword);
+        PagedResponse<AllFieldScientistNesreaTestsVM> GetAllNesreaTestByClientName(int pageSize, int pageNumber, string keyword);
         PagedResponse<AllFieldScientistNesreaTestsVM> GetAllNesreaTestByAnalystId(int pageSize, int pageNumber, string keyword);
         Task<AllFieldScientistNesreaTestsVM> GetNesreaTestById(NesreamResultVM model);
         Task<byte[]> DownloadNesreaTestToExcel(NesreamResultVM model);
