@@ -23,6 +23,7 @@ namespace PAMS.Application.Interfaces.Services
         Task<AnalysisDaysCount> FMEnvTestCountPastSevenDays();
 
         PagedResponse<AllFieldScientistFMEnveTestsVM> GetAllFMEnvTest(int pageSize, int pageNumber, string keyword);
+        PagedResponse<AllFieldScientistFMEnveTestsVM> GetAllFMEnvTestByClientName(int pageSize, int pageNumber, string keyword);
         PagedResponse<AllFieldScientistFMEnveTestsVM> GetAllFMEnvTestByAnalystId(int pageSize, int pageNumber, string keyword);
         Task<byte[]> DownloadFMEnvTestToExcel(FmEnvResultVM model);
         Task<ImageVM> DownloadFMEnvTestPhoto(FmEnvResultVM model);

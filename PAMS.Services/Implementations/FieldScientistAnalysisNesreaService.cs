@@ -339,6 +339,7 @@ namespace PAMS.Services.Implementations
         {
             var listAllFieldScientistNesreaTestsVM = new List<AllFieldScientistNesreaTestsVM>();
             var listOfNesreaField = new List<NESREAField>();
+            var totalNesreaField = 0;
             var searchKey = keyword;
 
             if (searchKey is null)
@@ -352,6 +353,9 @@ namespace PAMS.Services.Implementations
                     .Include(x => x.NESREASamples)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize).ToList();
+
+                totalNesreaField = _nesreaFieldStoreManager.DataStore.GetAllQuery()
+                    .Where(x => x.Submitted == true).Count();
             }
             else
             {
@@ -364,11 +368,39 @@ namespace PAMS.Services.Implementations
                     .Include(x => x.NESREASamples)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize).ToList();
+
+                totalNesreaField = _nesreaFieldStoreManager.DataStore.GetAllQuery()
+                   .Where(x => x.Submitted == true && x.SamplePointLocation.Name.ToLower().Contains(searchKey.ToLower())).Count();
             }
             
             listAllFieldScientistNesreaTestsVM = listOfNesreaField.Select(x => (AllFieldScientistNesreaTestsVM)x).ToList();
 
-            return new PagedResponse<AllFieldScientistNesreaTestsVM> { Data = listAllFieldScientistNesreaTestsVM, PageNumber = pageNumber, PageSize = pageSize, Total = listOfNesreaField.Count() };
+            return new PagedResponse<AllFieldScientistNesreaTestsVM> { Data = listAllFieldScientistNesreaTestsVM, PageNumber = pageNumber, PageSize = pageSize, Total = totalNesreaField };
+        }
+
+
+        public PagedResponse<AllFieldScientistNesreaTestsVM> GetAllNesreaTestByClientName(int pageSize, int pageNumber, string keyword)
+        {
+            var listAllFieldScientistNesreaTestsVM = new List<AllFieldScientistNesreaTestsVM>();
+            var listOfNesreaField = new List<NESREAField>();
+            var totalNesreaField = 0;
+            var searchKey = keyword;
+
+            listOfNesreaField = _nesreaFieldStoreManager.DataStore.GetAllQuery()
+                    .Where(x => x.Submitted == true && x.SamplePointLocation.Client.Name.ToLower().Contains(searchKey.ToLower()))
+                    .OrderByDescending(x => x.TimeModified)
+                    .Include(x => x.SamplePointLocation).ThenInclude(x => x.Client)
+                    .Include(x => x.FieldLocations)
+                    .Include(x => x.PamsUser)
+                    .Include(x => x.NESREASamples)
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize).ToList();
+
+            totalNesreaField = _nesreaFieldStoreManager.DataStore.GetAllQuery()
+                    .Where(x => x.Submitted == true && x.SamplePointLocation.Client.Name.ToLower().Contains(searchKey.ToLower())).Count();
+
+            listAllFieldScientistNesreaTestsVM = listOfNesreaField.Select(x => (AllFieldScientistNesreaTestsVM)x).ToList();
+            return new PagedResponse<AllFieldScientistNesreaTestsVM> { Data = listAllFieldScientistNesreaTestsVM, PageNumber = pageNumber, PageSize = pageSize, Total = totalNesreaField };
         }
 
         public PagedResponse<AllFieldScientistNesreaTestsVM> GetAllNesreaTestByAnalystId(int pageSize, int pageNumber, string keyword)
@@ -377,6 +409,7 @@ namespace PAMS.Services.Implementations
 
             var listAllFieldScientistNesreaTestsVM = new List<AllFieldScientistNesreaTestsVM>();
             var listOfNesreaField = new List<NESREAField>();
+            var totalNesreaField = 0;
             var searchKey = keyword;
 
             if (searchKey is null)
@@ -390,6 +423,9 @@ namespace PAMS.Services.Implementations
                     .Include(x => x.NESREASamples)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize).ToList();
+
+                totalNesreaField = _nesreaFieldStoreManager.DataStore.GetAllQuery()
+                    .Where(x => x.Submitted == true && x.PamsUserId == userId.ToString()).Count();
             }
             else
             {
@@ -402,11 +438,14 @@ namespace PAMS.Services.Implementations
                     .Include(x => x.NESREASamples)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize).ToList();
+
+                totalNesreaField = _nesreaFieldStoreManager.DataStore.GetAllQuery()
+                    .Where(x => x.Submitted == true && x.PamsUserId == userId.ToString() && x.SamplePointLocation.Name.ToLower().Contains(searchKey.ToLower())).Count();
             }
 
             listAllFieldScientistNesreaTestsVM = listOfNesreaField.Select(x => (AllFieldScientistNesreaTestsVM)x).ToList();
 
-            return new PagedResponse<AllFieldScientistNesreaTestsVM> { Data = listAllFieldScientistNesreaTestsVM, PageNumber = pageNumber, PageSize = pageSize, Total = listOfNesreaField.Count() };
+            return new PagedResponse<AllFieldScientistNesreaTestsVM> { Data = listAllFieldScientistNesreaTestsVM, PageNumber = pageNumber, PageSize = pageSize, Total = totalNesreaField };
         }
 
         public async Task<AnalysisDaysCount> NesreaTestCountPastSevenDays()

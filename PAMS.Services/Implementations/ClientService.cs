@@ -153,7 +153,8 @@ namespace PAMS.Services.Implementations
         
         public PagedResponse<ClientResponse> GetAllClient(int pageSize, int pageNumber)
         {
-            var total = (clientStoreManager.DataStore.GetAll().Result.Count()) / pageSize;
+            var total = clientStoreManager.DataStore.GetAllQuery().Count();
+
             var response = clientStoreManager.DataStore.GetAllQuery()
                 .Include("Samplings")
                 .Include("Samplings.MicroBiologicalAnalyses")
@@ -177,7 +178,7 @@ namespace PAMS.Services.Implementations
                 })
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize).ToList();
-            return new PagedResponse<ClientResponse> { Data = response, PageNumber = pageNumber, PageSize = pageSize, Total = response.Count()};
+            return new PagedResponse<ClientResponse> { Data = response, PageNumber = pageNumber, PageSize = pageSize, Total = total };
         }
         
         public List<Client> GetAllClientMobile()

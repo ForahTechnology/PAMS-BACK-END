@@ -314,6 +314,7 @@ namespace PAMS.Services.Implementations
         {
             var listAllFieldScientistDPRTestsVM = new List<AllFieldScientistDPRTestsVM>();
             var listOfDPRField = new List<DPRField>();
+            var totalDPRField = 0;
             var searchKey = keyword;
 
             if (searchKey is null)
@@ -327,6 +328,9 @@ namespace PAMS.Services.Implementations
                     .Include(x => x.DPRSamples)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize).ToList();
+
+                totalDPRField = _dPRFieldStoreManager.DataStore.GetAllQuery()
+                    .Where(x => x.Submitted == true).Count();
             }
             else
             {
@@ -339,11 +343,39 @@ namespace PAMS.Services.Implementations
                     .Include(x => x.DPRSamples)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize).ToList();
-            }
 
+                totalDPRField = _dPRFieldStoreManager.DataStore.GetAllQuery()
+                    .Where(x => x.Submitted == true && x.SamplePointLocation.Name.ToLower().Contains(searchKey.ToLower())).Count();
+            }
+            
+                    
             listAllFieldScientistDPRTestsVM = listOfDPRField.Select(x => (AllFieldScientistDPRTestsVM)x).ToList();
 
-            return new PagedResponse<AllFieldScientistDPRTestsVM> { Data = listAllFieldScientistDPRTestsVM, PageNumber = pageNumber, PageSize = pageSize, Total = listOfDPRField.Count() };
+            return new PagedResponse<AllFieldScientistDPRTestsVM> { Data = listAllFieldScientistDPRTestsVM, PageNumber = pageNumber, PageSize = pageSize, Total = totalDPRField };
+        }
+
+        public PagedResponse<AllFieldScientistDPRTestsVM> GetAllDPRTestByClientName(int pageSize, int pageNumber, string keyword)
+        {
+            var listAllFieldScientistDPRTestsVM = new List<AllFieldScientistDPRTestsVM>();
+            var listOfDPRField = new List<DPRField>();
+            var totalDPRField = 0;
+            var searchKey = keyword;
+
+            listOfDPRField = _dPRFieldStoreManager.DataStore.GetAllQuery()
+                   .Where(x => x.Submitted == true && x.SamplePointLocation.Client.Name.ToLower().Contains(searchKey.ToLower()))
+                   .OrderByDescending(x => x.TimeModified)
+                   .Include(x => x.SamplePointLocation).ThenInclude(x => x.Client)
+                   .Include(x => x.FieldLocations)
+                   .Include(x => x.PamsUser)
+                   .Include(x => x.DPRSamples)
+                   .Skip((pageNumber - 1) * pageSize)
+                   .Take(pageSize).ToList();
+
+            totalDPRField = _dPRFieldStoreManager.DataStore.GetAllQuery()
+                   .Where(x => x.Submitted == true && x.SamplePointLocation.Client.Name.ToLower().Contains(searchKey.ToLower())).Count();
+
+            listAllFieldScientistDPRTestsVM = listOfDPRField.Select(x => (AllFieldScientistDPRTestsVM)x).ToList();
+            return new PagedResponse<AllFieldScientistDPRTestsVM> { Data = listAllFieldScientistDPRTestsVM, PageNumber = pageNumber, PageSize = pageSize, Total = totalDPRField };
         }
 
         public PagedResponse<AllFieldScientistDPRTestsVM> GetAllDPRTestByAnalystId(int pageSize, int pageNumber, string keyword)
@@ -352,6 +384,7 @@ namespace PAMS.Services.Implementations
 
             var listAllFieldScientistDPRTestsVM = new List<AllFieldScientistDPRTestsVM>();
             var listOfDPRField = new List<DPRField>();
+            var totalDPRField = 0;
             var searchKey = keyword;
 
             if (searchKey is null)
@@ -365,6 +398,9 @@ namespace PAMS.Services.Implementations
                     .Include(x => x.DPRSamples)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize).ToList();
+
+                totalDPRField = _dPRFieldStoreManager.DataStore.GetAllQuery()
+                    .Where(x => x.Submitted == true && x.PamsUserId == userId.ToString()).Count();
             }
             else
             {
@@ -377,11 +413,14 @@ namespace PAMS.Services.Implementations
                     .Include(x => x.DPRSamples)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize).ToList();
+
+                totalDPRField = _dPRFieldStoreManager.DataStore.GetAllQuery()
+                    .Where(x => x.Submitted == true && x.PamsUserId == userId.ToString() && x.SamplePointLocation.Name.ToLower().Contains(searchKey.ToLower())).Count();
             }
 
             listAllFieldScientistDPRTestsVM = listOfDPRField.Select(x => (AllFieldScientistDPRTestsVM)x).ToList();
 
-            return new PagedResponse<AllFieldScientistDPRTestsVM> { Data = listAllFieldScientistDPRTestsVM, PageNumber = pageNumber, PageSize = pageSize, Total = listOfDPRField.Count() };
+            return new PagedResponse<AllFieldScientistDPRTestsVM> { Data = listAllFieldScientistDPRTestsVM, PageNumber = pageNumber, PageSize = pageSize, Total = totalDPRField };
         }
 
         public async Task<ImageVM> DownloadDPRTestPhoto(DprsResultVM model)

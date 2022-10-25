@@ -23,6 +23,7 @@ namespace PAMS.Application.Interfaces.Services
         Task<AnalysisDaysCount> DPRTestCountPastSevenDays();
 
         PagedResponse<AllFieldScientistDPRTestsVM> GetAllDPRTest(int pageSize, int pageNumber, string keyword);
+        PagedResponse<AllFieldScientistDPRTestsVM> GetAllDPRTestByClientName(int pageSize, int pageNumber, string keyword);
         PagedResponse<AllFieldScientistDPRTestsVM> GetAllDPRTestByAnalystId(int pageSize, int pageNumber, string keyword);
         Task<byte[]> DownloadDPRTestToExcel(DprsResultVM model);
         Task<ImageVM> DownloadDPRTestPhoto(DprsResultVM model);

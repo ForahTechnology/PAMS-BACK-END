@@ -147,6 +147,24 @@ namespace PAMS.API.Controllers.v1
         }
 
         /// <summary>
+        /// This endpoint Gets all the dpr tests by client name on this application.
+        /// </summary>
+        /// <param></param>
+        /// <returns></returns>
+        [HttpGet("GetAllDPRSubmittedTestByClientName")]
+        public IActionResult GetAllDPRTestByClientName(string keyword, int pageSize = 10, int pageNumber = 1)
+        {
+            var clientList = _fieldAnalysisDPRService.GetAllDPRTestByClientName(pageSize, pageNumber, keyword);
+            return Ok(new ResponseViewModel
+            {
+                Status = true,
+                Message = "Query ok",
+                ReturnObject = clientList
+
+            });
+        }
+
+        /// <summary>
         /// This endpoint Gets all the dpr tests on this application by Analyst Id.
         /// </summary>
         /// <param></param>
