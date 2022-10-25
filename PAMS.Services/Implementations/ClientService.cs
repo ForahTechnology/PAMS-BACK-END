@@ -153,7 +153,6 @@ namespace PAMS.Services.Implementations
         
         public PagedResponse<ClientResponse> GetAllClient(int pageSize, int pageNumber)
         {
-            var total2 = clientStoreManager.DataStore.GetAll().Result.Count();
             var total = clientStoreManager.DataStore.GetAllQuery().Count();
 
             var response = clientStoreManager.DataStore.GetAllQuery()
